@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanokpon Tipkan | Software Engineer Portfolio</title>
+  <style>
+    :root {
+      --blue-950: #071b33;
+      --blue-900: #0b2f57;
+      --blue-800: #164d82;
+      --blue-700: #1f6fb2;
+      --blue-100: #eaf4ff;
+      --blue-50: #f5faff;
+      --white: #ffffff;
+      --text: #1b2533;
+      --muted: #607086;
+      --line: #d7e7f7;
+      --page-bg: linear-gradient(180deg, #ffffff 0%, #f5faff 100%);
+      --nav-bg: rgba(255, 255, 255, 0.78);
+      --card-bg: rgba(255, 255, 255, 0.88);
+      --solid-card-bg: #ffffff;
+      --shadow: 0 24px 70px rgba(7, 27, 51, 0.12);
+    }
+
+    html[data-theme='dark'] {
+      --blue-950: #eaf4ff;
+      --blue-900: #c9e5ff;
+      --blue-800: #89c8ff;
+      --blue-700: #63b3ff;
+      --blue-100: rgba(99, 179, 255, 0.14);
+      --blue-50: #071b33;
+      --white: #07111f;
+      --text: #edf6ff;
+      --muted: #a9bdd3;
+      --line: rgba(137, 200, 255, 0.22);
+      --page-bg: linear-gradient(180deg, #061221 0%, #071b33 100%);
+      --nav-bg: rgba(6, 18, 33, 0.78);
+      --card-bg: rgba(11, 47, 87, 0.58);
+      --solid-card-bg: rgba(11, 47, 87, 0.72);
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--page-bg);
+      color: var(--text);
+      font-family: Georgia, 'Times New Roman', serif;
+      line-height: 1.75;
+      overflow-x: hidden;
+      transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      display: grid;
+      gap: 10px;
+      padding-left: 18px;
+    }
+
+    li::marker {
+      color: var(--blue-700);
+    }
+
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 0%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue-700), #89c8ff);
+      box-shadow: 0 0 20px rgba(31, 111, 178, 0.4);
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav__inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .brand,
+    .nav__links,
+    .theme-toggle,
+    .button,
+    .meta,
+    .pill,
+    .metric-label,
+    .timeline-date,
+    .project-card__tag,
+    .cert-card__type,
+    .toeic-note,
+    .score-box,
+    .eyebrow,
+    .section-kicker,
+    .contact-list,
+    .footer {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .brand {
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 900;
+      color: var(--blue-900);
+      white-space: nowrap;
+    }
+
+    .nav__right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav__links {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .nav__links a:hover {
+      color: var(--blue-700);
+    }
+
+    .theme-toggle {
+      border: 1px solid var(--line);
+      background: var(--card-bg);
+      color: var(--blue-900);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(7, 27, 51, 0.08);
+      transition: transform 0.25s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(137, 200, 255, 0.35), transparent 28%),
+        radial-gradient(circle at 86% 24%, rgba(255, 255, 255, 0.28), transparent 26%),
+        linear-gradient(135deg, #071b33, #164d82);
+      color: #ffffff;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: auto -8% -30% -8%;
+      height: 42%;
+      background: var(--solid-card-bg);
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+      transform: translateY(45%);
+    }
+
+    .hero__glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(1px);
+      opacity: 0.55;
+      animation: float-orb 8s ease-in-out infinite alternate;
+    }
+
+    .hero__glow--left {
+      width: 280px;
+      height: 280px;
+      background: rgba(137, 200, 255, 0.22);
+      left: -70px;
+      top: 22%;
+    }
+
+    .hero__glow--right {
+      width: 360px;
+      height: 360px;
+      background: rgba(255, 255, 255, 0.14);
+      right: -120px;
+      top: 12%;
+      animation-delay: 1s;
+    }
+
+    @keyframes float-orb {
+      from { transform: translate3d(0, 0, 0) scale(1); }
+      to { transform: translate3d(24px, -28px, 0) scale(1.07); }
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1180px;
+      width: 100%;
+      padding: 96px 24px 128px;
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      align-items: center;
+      gap: 58px;
+    }
+
+    .eyebrow {
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 13px;
+      color: #cce6ff;
+      margin-bottom: 18px;
+      font-weight: 800;
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 92px);
+      line-height: 0.96;
+      letter-spacing: -0.055em;
+      margin-bottom: 22px;
+    }
+
+    .hero__role {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(20px, 2.4vw, 30px);
+      color: #e4f3ff;
+      margin-bottom: 24px;
+      font-weight: 700;
+    }
+
+    .hero__summary {
+      max-width: 720px;
+      color: #f2f8ff;
+      font-size: 18px;
+    }
+
+    .slide-text {
+      display: inline-block;
+      animation: slide-text-in 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .slide-text--delay-1 { animation-delay: 0.12s; }
+    .slide-text--delay-2 { animation-delay: 0.24s; }
+    .slide-text--delay-3 { animation-delay: 0.36s; }
+
+    @keyframes slide-text-in {
+      from {
+        opacity: 0;
+        transform: translateY(34px) skewY(2deg);
+        filter: blur(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) skewY(0);
+        filter: blur(0);
+      }
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 900;
+      border: 1px solid transparent;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .button--primary {
+      color: #0b2f57;
+      background: #ffffff;
+    }
+
+    .button--ghost {
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.48);
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-card {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      border-radius: 34px;
+      padding: 32px;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(16px);
+      transition: transform 0.15s ease-out;
+      overflow: hidden;
+    }
+
+    .profile-visual {
+      position: relative;
+      min-height: 245px;
+      margin: -6px -6px 26px;
+      border-radius: 28px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.28), transparent 28%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(137, 200, 255, 0.12));
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .profile-visual svg {
+      width: 100%;
+      height: 245px;
+      display: block;
+    }
+
+    .floating-badge {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+      animation: badge-float 3.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes badge-float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-8px); }
+    }
+
+    .profile-card__label {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #b9dcff;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 900;
+    }
+
+    .profile-card h2 {
+      font-size: 30px;
+      line-height: 1.15;
+      margin: 8px 0 16px;
+    }
+
+    .profile-card p {
+      color: #d9ecff;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .contact-item {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 14px;
+    }
+
+    .contact-item span {
+      display: block;
+      color: #b9dcff;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 11px;
+      margin-bottom: 2px;
+    }
+
+    .section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 96px 24px;
+    }
+
+    .section--compact {
+      padding-top: 42px;
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 32px;
+      align-items: end;
+      margin-bottom: 36px;
+    }
+
+    .section-kicker {
+      color: var(--blue-700);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      color: var(--blue-950);
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+    }
+
+    .section-copy {
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .metrics-grid,
+    .card-grid--two,
+    .toeic-layout {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .visual-showcase {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .visual-card {
+      position: relative;
+      min-height: 420px;
+      overflow: hidden;
+      padding: 0;
+      background: var(--solid-card-bg);
+    }
+
+    .visual-image {
+      position: relative;
+      min-height: 290px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(137, 200, 255, 0.32), transparent 26%),
+        linear-gradient(135deg, rgba(31, 111, 178, 0.12), rgba(7, 27, 51, 0.04));
+    }
+
+    .visual-image svg {
+      width: 100%;
+      min-height: 290px;
+      display: block;
+      transform: scale(1.02);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .visual-card:hover .visual-image svg {
+      transform: scale(1.08) translateY(-6px);
+    }
+
+    .visual-content {
+      padding: 28px;
+    }
+
+    .visual-content h3 {
+      color: var(--blue-900);
+      font-size: 26px;
+      margin-bottom: 8px;
+    }
+
+    .visual-content p {
+      color: var(--muted);
+    }
+
+    .visual-stack {
+      display: grid;
+      gap: 24px;
+    }
+
+    .mini-visual-card {
+      min-height: 198px;
+      display: grid;
+      grid-template-columns: 118px 1fr;
+      gap: 18px;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .mini-visual-icon {
+      width: 118px;
+      height: 118px;
+      border-radius: 30px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--blue-100), rgba(137, 200, 255, 0.18));
+      border: 1px solid var(--line);
+    }
+
+    .mini-visual-icon svg {
+      width: 82px;
+      height: 82px;
+    }
+
+    .metrics-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card,
+    .cert-card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .card h3,
+    .cert-card h3 {
+      color: var(--blue-900);
+      font-size: 25px;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .metric-card {
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, var(--solid-card-bg), var(--blue-50));
+    }
+
+    .metric-number {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--blue-900);
+      font-size: clamp(42px, 5vw, 64px);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      margin-top: 12px;
+      font-weight: 800;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 24px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 28px;
+    }
+
+    .timeline-date {
+      color: var(--blue-700);
+      font-weight: 900;
+      font-size: 14px;
+      padding-top: 12px;
+    }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(31, 111, 178, 0.08);
+    }
+
+    .project-card__tag,
+    .cert-card__type {
+      color: var(--blue-700);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      background: var(--blue-100);
+      color: var(--blue-900);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .toeic-card {
+      background: linear-gradient(135deg, #0b2f57, #1f6fb2);
+      color: #ffffff;
+      overflow: hidden;
+      position: relative;
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: 0 24px 70px rgba(7, 27, 51, 0.2);
+    }
+
+    .toeic-card::before {
+      content: 'TOEIC';
+      position: absolute;
+      right: -12px;
+      bottom: -38px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 96px;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.08);
+      letter-spacing: -0.08em;
+    }
+
+    .toeic-card h2 {
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1;
+    }
+
+    .toeic-score {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(64px, 8vw, 104px);
+      font-weight: 900;
+      line-height: 0.92;
+      letter-spacing: -0.08em;
+      margin: 18px 0;
+    }
+
+    .toeic-note {
+      color: #dceeff;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .score-box {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .score-box strong {
+      display: block;
+      font-size: 24px;
+    }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .image-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .cert-card {
+      background: var(--solid-card-bg);
+    }
+
+    .footer {
+      background: #071b33;
+      color: #ffffff;
+      padding: 54px 24px;
+      text-align: center;
+    }
+
+    .footer p {
+      color: #c9def3;
+      margin-top: 8px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(70px) scale(0.97);
+      filter: blur(8px);
+      transition:
+        opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    .delay-1 { transition-delay: 0.08s; }
+    .delay-2 { transition-delay: 0.16s; }
+
+    @media (max-width: 900px) {
+      .hero__inner,
+      .section-header,
+      .metrics-grid,
+      .card-grid--two,
+      .timeline-item,
+      .toeic-layout,
+      .visual-showcase,
+      .cert-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero__inner {
+        padding-top: 76px;
+      }
+
+      .nav__inner,
+      .nav__right {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .section {
+        padding: 72px 20px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a class="brand" href="#top">Kanokpon Tipkan</a>
+
+      <div class="nav__right">
+        <div class="nav__links">
+          <a href="#summary">Summary</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#toeic">TOEIC</a>
+          <a href="#certifications">Certifications</a>
+        </div>
+
+        <button class="theme-toggle" id="themeToggle" type="button">Dark Mode</button>
+      </div>
+    </div>
+  </nav>
+
+  <header id="top" class="hero">
+    <div class="hero__glow hero__glow--left"></div>
+    <div class="hero__glow hero__glow--right"></div>
+
+    <div class="hero__inner">
+      <section class="hero__content reveal is-visible">
+        <p class="eyebrow"><span class="slide-text">Software Engineer Portfolio</span></p>
+        <h1><span class="slide-text slide-text--delay-1">Kanokpon Tipkan</span></h1>
+        <p class="hero__role"><span class="slide-text slide-text--delay-2">Mobile, Frontend, and Backend Software Engineer</span></p>
+        <p class="hero__summary">
+          Software Engineer with 3 years of professional experience developing mobile, frontend,
+          and backend applications using Flutter, Vue 3, and Golang. Experienced in building
+          scalable features, integrating APIs, improving production systems, and delivering
+          reliable digital products for real users, including enterprise collaboration tools and
+          real-time communication applications.
+        </p>
+
+        <div class="hero__actions">
+          <a class="button button--primary" href="mailto:kanokpon.tipkan@gmail.com">Contact by Email</a>
+          <a class="button button--ghost" href="#summary">View Profile</a>
+        </div>
+      </section>
+
+      <aside class="profile-card reveal is-visible delay-1" id="profileCard">
+        <div class="profile-visual" aria-label="Professional software engineer illustration">
+          <svg viewBox="0 0 520 320" role="img" aria-label="Developer workstation illustration">
+            <defs>
+              <linearGradient id="heroScreen" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.94" />
+                <stop offset="1" stop-color="#cfe8ff" stop-opacity="0.78" />
+              </linearGradient>
+              <linearGradient id="heroBlue" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#89c8ff" />
+                <stop offset="1" stop-color="#1f6fb2" />
+              </linearGradient>
+            </defs>
+            <circle cx="404" cy="62" r="92" fill="#ffffff" opacity="0.09" />
+            <circle cx="98" cy="250" r="118" fill="#89c8ff" opacity="0.13" />
+            <rect x="82" y="74" width="356" height="196" rx="28" fill="url(#heroScreen)" opacity="0.96" />
+            <rect x="105" y="104" width="310" height="26" rx="13" fill="#0b2f57" opacity="0.15" />
+            <circle cx="124" cy="117" r="5" fill="#1f6fb2" />
+            <circle cx="142" cy="117" r="5" fill="#63b3ff" />
+            <circle cx="160" cy="117" r="5" fill="#89c8ff" />
+            <rect x="126" y="154" width="126" height="16" rx="8" fill="#1f6fb2" opacity="0.72" />
+            <rect x="126" y="184" width="226" height="13" rx="6.5" fill="#0b2f57" opacity="0.16" />
+            <rect x="126" y="210" width="184" height="13" rx="6.5" fill="#0b2f57" opacity="0.14" />
+            <rect x="290" y="148" width="82" height="82" rx="24" fill="url(#heroBlue)" opacity="0.95" />
+            <path d="M317 177l-18 13 18 13M345 177l18 13-18 13M336 169l-12 44" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+            <rect x="196" y="270" width="128" height="14" rx="7" fill="#ffffff" opacity="0.4" />
+          </svg>
+          <div class="floating-badge">Ready to Apply</div>
+        </div>
+        <p class="profile-card__label">Application Profile</p>
+        <h2>Software Engineer</h2>
+        <p>
+          Prepared for software engineering roles requiring practical development experience,
+          product ownership, and strong collaboration.
+        </p>
+
+        <div class="contact-list">
+          <div class="contact-item">
+            <span>Email</span>
+            <a href="mailto:kanokpon.tipkan@gmail.com">kanokpon.tipkan@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <span>Phone</span>
+            <a href="tel:+66881807881">(+66) 881807881</a>
+          </div>
+          <div class="contact-item">
+            <span>Location</span>
+            <p>Bangkok, Thailand</p>
+          </div>
+          <div class="contact-item">
+            <span>References</span>
+            <p>Available upon request</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section id="summary" class="section section--compact">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-kicker">Professional Summary</p>
+          <h2 class="section-title">A practical engineer focused on stable and useful products.</h2>
+        </div>
+        <p class="section-copy">
+          I combine mobile application development, API integration, backend fundamentals, and production debugging
+          to support projects from implementation to maintenance. My strongest work is in real-world systems that
+          require reliability, clear user flows, and collaboration with multiple teams. I contributed to One Conference,
+          an internal meeting application similar to Google Meet, developed for organizational use. The project required
+          Flutter working together with Kotlin and Swift to communicate reliably with LiveKit and support stable real-time meetings.
+          I also developed OneBox Backup, an enterprise backup and restore application, responsible for core features including
+          environment validation, manual and scheduled backup, real-time progress tracking, backup history management, and selective
+          file restore, helping improve data protection and business continuity. Tech Stack: Go, Wails, Vue 3, Vite, Vuetify,
+          JavaScript, S3/MinIO.
+        </p>
+      </div>
+
+      <div class="metrics-grid">
+        <article class="card metric-card reveal">
+          <div class="metric-number">3+</div>
+          <p class="metric-label">Years of professional software engineering experience</p>
+        </article>
+        <article class="card metric-card reveal delay-1">
+          <div class="metric-number">4</div>
+          <p class="metric-label">Key impact projects: Health Rider, MOPH Refer, One Conference, and OneBox Backup</p>
+        </article>
+        <article class="card metric-card reveal delay-2">
+          <div class="metric-number">620</div>
+          <p class="metric-label">TOEIC total score for workplace communication</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="visuals" class="section">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-kicker">Professional Focus</p>
+          <h2 class="section-title">Visual overview of engineering strengths.</h2>
+        </div>
+        <p class="section-copy">
+          Clean professional visuals are added to make the portfolio feel more polished while keeping the page lightweight and easy to deploy on GitHub Pages.
+        </p>
+      </div>
+
+      <div class="visual-showcase">
+        <article class="card visual-card reveal">
+          <div class="visual-image">
+            <svg viewBox="0 0 720 420" role="img" aria-label="Cross-platform application dashboard illustration">
+              <defs>
+                <linearGradient id="dashBg" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#eaf4ff" />
+                  <stop offset="1" stop-color="#ffffff" />
+                </linearGradient>
+                <linearGradient id="dashBlue" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#1f6fb2" />
+                  <stop offset="1" stop-color="#63b3ff" />
+                </linearGradient>
+              </defs>
+              <rect width="720" height="420" fill="url(#dashBg)" />
+              <circle cx="100" cy="88" r="120" fill="#89c8ff" opacity="0.25" />
+              <circle cx="640" cy="350" r="150" fill="#1f6fb2" opacity="0.12" />
+              <rect x="92" y="82" width="396" height="254" rx="30" fill="#ffffff" stroke="#d7e7f7" stroke-width="3" />
+              <rect x="122" y="118" width="132" height="18" rx="9" fill="#0b2f57" opacity="0.22" />
+              <rect x="122" y="164" width="82" height="82" rx="24" fill="url(#dashBlue)" />
+              <rect x="230" y="164" width="82" height="82" rx="24" fill="#eaf4ff" stroke="#d7e7f7" stroke-width="3" />
+              <rect x="338" y="164" width="82" height="82" rx="24" fill="#eaf4ff" stroke="#d7e7f7" stroke-width="3" />
+              <rect x="122" y="274" width="298" height="16" rx="8" fill="#0b2f57" opacity="0.14" />
+              <rect x="122" y="304" width="222" height="14" rx="7" fill="#1f6fb2" opacity="0.26" />
+              <rect x="452" y="126" width="164" height="250" rx="34" fill="#071b33" />
+              <rect x="470" y="154" width="128" height="190" rx="24" fill="#ffffff" />
+              <circle cx="534" cy="210" r="34" fill="url(#dashBlue)" />
+              <rect x="496" y="266" width="78" height="11" rx="5.5" fill="#0b2f57" opacity="0.18" />
+              <rect x="496" y="290" width="60" height="11" rx="5.5" fill="#1f6fb2" opacity="0.3" />
+            </svg>
+          </div>
+          <div class="visual-content">
+            <h3>Cross-platform Product Development</h3>
+            <p>Experience building mobile, desktop, and enterprise applications with Flutter, Wails, Vue 3, native Kotlin/Swift integrations, API communication, and real-time workflows.</p>
+          </div>
+        </article>
+
+        <div class="visual-stack">
+          <article class="card mini-visual-card reveal delay-1">
+            <div class="mini-visual-icon">
+              <svg viewBox="0 0 120 120" role="img" aria-label="Live video meeting icon">
+                <rect x="18" y="28" width="64" height="50" rx="14" fill="#1f6fb2" />
+                <path d="M82 45l22-13v42L82 61z" fill="#63b3ff" />
+                <circle cx="42" cy="53" r="9" fill="#ffffff" opacity="0.9" />
+                <rect x="32" y="66" width="36" height="7" rx="3.5" fill="#ffffff" opacity="0.72" />
+              </svg>
+            </div>
+            <div>
+              <h3>Real-time Communication</h3>
+              <p class="meta">One Conference · LiveKit · Flutter · Kotlin · Swift</p>
+              <p>Focused on stable video meeting behavior and cross-platform media handling.</p>
+            </div>
+          </article>
+
+          <article class="card mini-visual-card reveal delay-2">
+            <div class="mini-visual-icon">
+              <svg viewBox="0 0 120 120" role="img" aria-label="Backend API icon">
+                <rect x="22" y="24" width="76" height="18" rx="9" fill="#1f6fb2" />
+                <rect x="22" y="52" width="76" height="18" rx="9" fill="#63b3ff" />
+                <rect x="22" y="80" width="76" height="18" rx="9" fill="#0b2f57" />
+                <circle cx="38" cy="33" r="4" fill="#ffffff" />
+                <circle cx="38" cy="61" r="4" fill="#ffffff" />
+                <circle cx="38" cy="89" r="4" fill="#ffffff" />
+              </svg>
+            </div>
+            <div>
+              <h3>API and Backend Foundation</h3>
+              <p class="meta">Golang · REST API · SQL · NoSQL</p>
+              <p>Comfortable integrating APIs and supporting backend-driven product features.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <p class="image-note reveal">Note: These are built-in SVG visuals, so the website remains a single HTML file and does not require separate image files.</p>
+    </section>
+
+    <section id="achievements" class="section">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-kicker">Achievement Summary</p>
+          <h2 class="section-title">Selected results and contributions.</h2>
+        </div>
+        <p class="section-copy">
+          These highlights summarize the strongest accomplishments from professional work, academic projects,
+          and continuous learning activities.
+        </p>
+      </div>
+
+      <div class="card-grid--two">
+        <article class="card reveal">
+          <h3>Product Development</h3>
+          <ul>
+            <li>Led development of a Flutter-based medication delivery application for Health Rider.</li>
+            <li>Built QR payment, multi-device login, and real-time workflow triggers using Firebase and Realtime Database.</li>
+            <li>Developed referral tracking features for MOPH Refer to support coordination between hospitals and ambulance teams.</li>
+            <li>Contributed to One Conference, an internal video meeting application similar to Google Meet, by developing Flutter features and integrating native Kotlin and Swift components for stable LiveKit communication.</li>
+            <li>Developed OneBox Backup, an enterprise backup and restore application, covering environment validation, manual and scheduled backup, real-time progress tracking, backup history management, and selective file restore.</li>
+          </ul>
+        </article>
+
+        <article class="card reveal delay-1">
+          <h3>Engineering Improvement</h3>
+          <ul>
+            <li>Maintained production mobile applications and improved stability through debugging and issue resolution.</li>
+            <li>Implemented OnePlatform features including notes, albums, comments, profile management, image cropping, and device album integration.</li>
+            <li>Improved map visualization for an AED emergency response project using Google Maps API pin merging.</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <h3>Research and Data Analysis</h3>
+          <ul>
+            <li>Analyzed THz spectral datasets for amino acids, caffeine, and nicotine identification.</li>
+            <li>Converted spectral data into image datasets for machine learning model training.</li>
+            <li>Received recognition for a Raman spectroscopy and machine learning project for stereoisomer identification.</li>
+          </ul>
+        </article>
+
+        <article class="card reveal delay-1">
+          <h3>Continuous Learning</h3>
+          <ul>
+            <li>Completed courses in Golang REST API development, Python programming, SQL fundamentals, and web application penetration testing.</li>
+            <li>Built a broader foundation across mobile, backend, database, security, networking, and machine learning topics.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="experience" class="section">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-kicker">Experience</p>
+          <h2 class="section-title">Professional background.</h2>
+        </div>
+        <p class="section-copy">
+          Hands-on development experience in enterprise mobile applications, emergency response systems,
+          and research-based data analysis.
+        </p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item reveal">
+          <div class="timeline-date">2022 – Present<br />Bangkok, Thailand</div>
+          <div class="card">
+            <h3>Software Engineer</h3>
+            <p class="meta">INET</p>
+            <ul>
+              <li>Developed Android applications using Kotlin, Java, and REST APIs, including a movie streaming application consuming public APIs.</li>
+              <li>Maintained the OneChat mobile application to support system stability and performance.</li>
+              <li>Implemented Google Maps API pin merging functionality for the AED emergency response project.</li>
+              <li>Developed Flutter features for the OnePlatform enterprise application, including notes, albums, comments, and profile management.</li>
+              <li>Implemented image cropping and device album integration to improve mobile user experience.</li>
+              <li>Diagnosed and resolved application issues to improve reliability and system stability.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-item reveal">
+          <div class="timeline-date">Jul 2020 – Nov 2020<br />Thailand</div>
+          <div class="card">
+            <h3>Data Scientist</h3>
+            <p class="meta">Co-operative Education | NSTDA, Terahertz Technology Research Team</p>
+            <ul>
+              <li>Analyzed THz spectral datasets to identify compositions of amino acids, caffeine, and nicotine.</li>
+              <li>Converted spectral data into image datasets for machine learning training.</li>
+              <li>Applied data preprocessing and feature extraction techniques to improve classification accuracy.</li>
+              <li>Supported spectroscopy research workflows through computational analysis.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-kicker">Selected Projects</p>
+          <h2 class="section-title">Projects with real operational impact.</h2>
+        </div>
+        <p class="section-copy">
+          A summary of key projects that demonstrate ownership, integration capability, and product-focused thinking.
+        </p>
+      </div>
+
+      <div class="card-grid--two">
+        <article class="card project-card reveal">
+          <p class="project-card__tag">Key Project</p>
+          <h3>Health Rider</h3>
+          <p class="meta">Medication Delivery Platform</p>
+          <ul>
+            <li>Led development of the Flutter mobile application.</li>
+            <li>Implemented QR payment and multi-device login functionality.</li>
+            <li>Built real-time system triggers for delivery workflows using Firebase and Realtime Database.</li>
+            <li>Supported a product goal of reducing hospital visits and minimizing infection risks for patients.</li>
+          </ul>
+        </article>
+
+        <article class="card project-card reveal delay-1">
+          <p class="project-card__tag">Key Project</p>
+          <h3>MOPH Refer</h3>
+          <p class="meta">Emergency Patient Referral Coordination System</p>
+          <ul>
+            <li>Developed real-time patient referral tracking features for hospitals and dispatch centers.</li>
+            <li>Enabled coordination between ambulance teams and hospitals during emergency transfers.</li>
+            <li>Supported workflows where timely information exchange is essential for emergency operations.</li>
+          </ul>
+        </article>
+
+        <article class="card project-card reveal">
+          <p class="project-card__tag">Key Project</p>
+          <h3>One Conference</h3>
+          <p class="meta">Internal Video Meeting Application</p>
+          <ul>
+            <li>Contributed to an internal meeting application similar to Google Meet for organizational communication.</li>
+            <li>Developed Flutter application features and integrated native Kotlin and Swift components where Flutter alone was not sufficient.</li>
+            <li>Worked with LiveKit communication workflows to improve meeting stability, media handling, and real-time user experience.</li>
+            <li>Supported enterprise use cases such as reliable video meetings, participant interaction, and cross-platform behavior.</li>
+          </ul>
+        </article>
+
+        <article class="card project-card reveal delay-1">
+          <p class="project-card__tag">Key Project</p>
+          <h3>OneBox Backup</h3>
+          <p class="meta">Enterprise Backup and Restore Application</p>
+          <ul>
+            <li>Developed core backup and restore features for an enterprise data protection application.</li>
+            <li>Implemented environment validation, manual backup, scheduled backup, and real-time progress tracking.</li>
+            <li>Built backup history management and selective file restore to support practical recovery workflows.</li>
+            <li>Helped improve data protection and business continuity by reducing the impact of important file loss.</li>
+            <li>Tech Stack: Go, Wails, Vue 3, Vite, Vuetify, JavaScript, S3/MinIO.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-kicker">Skills</p>
+          <h2 class="section-title">Technical capabilities.</h2>
+        </div>
+        <p class="section-copy">
+          A balanced skill set covering application development, APIs, data handling, and collaborative engineering practices.
+        </p>
+      </div>
+
+      <div class="card-grid--two">
+        <article class="card reveal">
+          <h3>Languages</h3>
+          <div class="pill-grid">
+            <span class="pill">Golang</span>
+            <span class="pill">Dart</span>
+            <span class="pill">Python</span>
+            <span class="pill">Kotlin</span>
+            <span class="pill">Java</span>
+            <span class="pill">C/C++</span>
+            <span class="pill">C#</span>
+          </div>
+        </article>
+
+        <article class="card reveal delay-1">
+          <h3>Frameworks and Technologies</h3>
+          <div class="pill-grid">
+            <span class="pill">Flutter</span>
+            <span class="pill">Vue 3</span>
+            <span class="pill">Wails</span>
+            <span class="pill">Vite</span>
+            <span class="pill">Vuetify</span>
+            <span class="pill">REST API</span>
+            <span class="pill">Firebase</span>
+            <span class="pill">Realtime Database</span>
+            <span class="pill">S3/MinIO</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <h3>Database</h3>
+          <div class="pill-grid">
+            <span class="pill">SQL</span>
+            <span class="pill">NoSQL</span>
+          </div>
+        </article>
+
+        <article class="card reveal delay-1">
+          <h3>Soft Skills</h3>
+          <div class="pill-grid">
+            <span class="pill">Team Collaboration</span>
+            <span class="pill">Critical Thinking</span>
+            <span class="pill">Attention to Detail</span>
+            <span class="pill">Time Management</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="toeic" class="section">
+      <div class="toeic-layout">
+        <article class="toeic-card reveal">
+          <p class="eyebrow">English Proficiency</p>
+          <h2>TOEIC Score</h2>
+          <div class="toeic-score">620</div>
+          <p class="toeic-note">Official TOEIC Listening and Reading Test · Test Date: January 30, 2025</p>
+
+          <div class="score-grid">
+            <div class="score-box">
+              <span>Listening</span>
+              <strong>365</strong>
+              <small>CEFR B1</small>
+            </div>
+            <div class="score-box">
+              <span>Reading</span>
+              <strong>255</strong>
+              <small>CEFR A2</small>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reveal delay-1">
+          <h3>Communication Profile</h3>
+          <p>
+            TOEIC score 620 demonstrates practical English ability for reading technical documents,
+            communicating with teams, and supporting software development work in professional environments.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="certifications" class="section">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-kicker">Certifications</p>
+          <h2 class="section-title">Learning and recognition.</h2>
+        </div>
+        <p class="section-copy">
+          Selected certificates and achievements that support backend, programming, database, security,
+          networking, and data-related capabilities.
+        </p>
+      </div>
+
+      <div class="cert-grid">
+        <article class="cert-card reveal">
+          <p class="cert-card__type">Backend</p>
+          <h3>Mastering Fundamental Golang: Building REST API Project</h3>
+          <p class="meta">FutureSkill | 26 Feb 2025</p>
+          <p>Completed a practical Golang course focused on REST API project development.</p>
+        </article>
+
+        <article class="cert-card reveal delay-1">
+          <p class="cert-card__type">Backend</p>
+          <h3>E-Commerce REST APIs with Golang</h3>
+          <p class="meta">Udemy | 26 Aug 2024</p>
+          <p>Completed 21.5 total hours of training in building REST APIs with Golang.</p>
+        </article>
+
+        <article class="cert-card reveal">
+          <p class="cert-card__type">Programming</p>
+          <h3>UpSkill Python Programming: Path to Developer</h3>
+          <p class="meta">FutureSkill | 29 Nov 2024</p>
+          <p>Completed Python programming training for developer fundamentals.</p>
+        </article>
+
+        <article class="cert-card reveal delay-1">
+          <p class="cert-card__type">Programming</p>
+          <h3>Python Programming Workshop</h3>
+          <p class="meta">Department of Electrical Engineering, Silpakorn University | 16 Jan 2021</p>
+          <p>Completed Python workshop training organized by the Department of Electrical Engineering.</p>
+        </article>
+
+        <article class="cert-card reveal">
+          <p class="cert-card__type">Database</p>
+          <h3>Essential SQL for Everyone</h3>
+          <p class="meta">BornToDev | 20 Apr 2022</p>
+          <p>Completed SQL fundamentals training for database querying and data handling.</p>
+        </article>
+
+        <article class="cert-card reveal delay-1">
+          <p class="cert-card__type">Security</p>
+          <h3>Web Application Penetration Testing</h3>
+          <p class="meta">Mahidol University and depa | 19–20 Aug 2023</p>
+          <p>Completed a 12-hour web application penetration testing course.</p>
+        </article>
+
+        <article class="cert-card reveal">
+          <p class="cert-card__type">Networking</p>
+          <h3>Network Device Configuration with Cisco Packet Tracer</h3>
+          <p class="meta">Silpakorn University | Jan–Feb 2021</p>
+          <p>Completed practical network device configuration training using Cisco Packet Tracer.</p>
+        </article>
+
+        <article class="cert-card reveal delay-1">
+          <p class="cert-card__type">Award</p>
+          <h3>Stereoisomer Identification Using Raman Spectroscopy and Machine Learning</h3>
+          <p class="meta">Silpakorn University | 29 Apr 2022</p>
+          <p>Received second runner-up recognition for a co-operative education project selection.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="education" class="section">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-kicker">Education</p>
+          <h2 class="section-title">Academic background.</h2>
+        </div>
+        <p class="section-copy">
+          Formal education in electronics and computer systems with practical software and research experience.
+        </p>
+      </div>
+
+      <article class="card reveal">
+        <h3>Bachelor of Electronics and Computer Systems</h3>
+        <p class="meta">Silpakorn University | 2017 – 2021</p>
+        <p>
+          Completed undergraduate studies with a foundation in electronics, computer systems,
+          programming, and applied technology.
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <strong>Kanokpon Tipkan</strong>
+    <p>Software Engineer | Bangkok, Thailand</p>
+    <p>kanokpon.tipkan@gmail.com | (+66) 881807881</p>
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const scrollProgress = document.getElementById('scrollProgress');
+    const profileCard = document.getElementById('profileCard');
+
+    const savedTheme = localStorage.getItem('portfolio-theme') || 'light';
+    root.setAttribute('data-theme', savedTheme);
+    themeToggle.textContent = savedTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = root.getAttribute('data-theme');
+      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('portfolio-theme', nextTheme);
+      themeToggle.textContent = nextTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+    });
+
+    function handleScroll() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      scrollProgress.style.width = `${progress}%`;
+
+      const heroOffset = Math.min(scrollTop * 0.08, 34);
+      if (profileCard) {
+        profileCard.style.transform = `translateY(${heroOffset}px)`;
+      }
+    }
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      {
+        threshold: 0.16,
+        rootMargin: '0px 0px -80px 0px',
+      }
+    );
+
+    document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+  </script>
+</body>
+</html>
